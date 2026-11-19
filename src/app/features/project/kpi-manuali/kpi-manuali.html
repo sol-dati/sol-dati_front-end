@@ -1,0 +1,44 @@
+<div class="kpi-manuali">
+
+  <div class="kpi-titolo">
+    <h2>Inserimento Kpi Manuali</h2>
+    <button type="button" class="chiudi" (click)="chiudi.emit()" title="Chiudi">✕</button>
+  </div>
+
+  <div class="kpi-progetto">
+    <p>Progetto Selezionato: <strong>{{ tag() }}</strong> - {{ projectName() }}</p>
+    <p>Release: {{ release() ?? '-' }} - Sprint: {{ sprint() ?? '-' }}</p>
+  </div>
+
+  @if (errore()) {
+    <div class="errore">{{ errore() }}</div>
+  }
+
+  @if (caricamento()) {
+    <p class="info">Caricamento...</p>
+  } @else if (kpi().length === 0) {
+    <p class="info">Nessun KPI manuale nel catalogo (kpi_compliance con type_kpi_cod = 'M').</p>
+  } @else {
+    <div class="kpi-elenco">
+      @for (k of kpi(); track k.chiave) {
+        <div class="kpi-riga">
+          <label class="kpi-nome" [for]="'kpi-' + k.chiave" [title]="k.chiave + ' · ISO ' + k.isoCode">{{ k.nome }}</label>
+          <input class="kpi-valore" type="text" inputmode="decimal" [id]="'kpi-' + k.chiave"
+                 [value]="k.valore ?? ''"
+                 (input)="onValore(k.chiave, $event)" />
+          <span class="kpi-descrizione">{{ k.descrizione ?? '' }}</span>
+        </div>
+      }
+    </div>
+
+    <div class="azioni">
+      <span class="nota">I campi vuoti non vengono salvati. Il salvataggio sostituisce i valori precedenti del tag.</span>
+      <div class="bottoni">
+        <button type="button" class="annulla" (click)="chiudi.emit()" [disabled]="salvataggio()">Annulla</button>
+        <button type="button" class="salva" (click)="onSalva()" [disabled]="salvataggio()">
+          {{ salvataggio() ? 'Invio in corso...' : 'Invia Kpi Manuali' }}
+        </button>
+      </div>
+    </div>
+  }
+</div>

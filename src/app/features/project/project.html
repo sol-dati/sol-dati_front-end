@@ -1,0 +1,30 @@
+<button class="btn-sync" (click)="onSync()" [disabled]="syncing()">
+  {{ syncing() ? 'Aggiornamento...' : 'Aggiorna da GitLab' }}
+</button>
+
+<app-project-select [projects]="projects()" [selected]="selectedProjectName()" (projectChange)="onProjectChange($event)" />
+
+@for (a of analisiInCorso(); track a.projectName + '|' + a.tag) {
+  <p class="analisi-in-corso" role="status">
+    Analisi in corso per <strong>{{ a.projectName }}</strong> ({{ a.tag }})
+  </p>
+}
+
+@if (selectedProjectName()) {
+  <div class="project-content">
+
+    @if (rows().length > 0) {
+      <app-tag-table [rows]="rows()" [selectedTag]="selectedTag()" (tagSelect)="onTagSelect($event)" />
+    }
+
+    @if (selectedRow(); as row) {
+      <app-dashboard [row]="row" [progetto]="selectedProjectName()" [sonarResult]="sonarResult()" [loading]="sonarService.loading() || analisiInCorso().length > 0" [errore]="sonarService.errorMessage()" (avviaSq)="onAvviaSq()" (kpiManuali)="onKpiManuali()" />
+
+      @if (mostraKpiManuali()) {
+        <app-kpi-manuali [projectName]="selectedProjectName()" [tag]="row.tag" [release]="row.release" [sprint]="row.sprint" (chiudi)="mostraKpiManuali.set(false)" (salvati)="onKpiManualiSalvati()" />
+      }
+    }
+  </div>
+}
+
+<button type="button" class="dashboard-button" routerLink="/fact">visualizza tutte le analisi</button>

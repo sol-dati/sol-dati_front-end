@@ -1,0 +1,97 @@
+
+<main class="page">
+  <section class="dashboard" aria-labelledby="fact-title">
+    <div class="dashboard-body">
+
+      <div class="fact-heading">
+        <div>
+          <h1 id="fact-title">Progetti analizzati</h1>
+          <p>Seleziona una riga per vedere l'ultima analisi SonarQube.</p>
+        </div>
+
+        <span class="project-count">
+          {{ projects().length }} progetti
+        </span>
+      </div>
+
+      @if (progetto(); as p) {
+        <div class="filtro">
+          Analisi di <strong>{{ p }}</strong>
+          <button type="button" class="dashboard-button" routerLink="/fact">visualizza tutte le analisi</button>
+        </div>
+      }
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Progetto</th>
+              <th scope="col">Release</th>
+              <th scope="col">Sprint</th>
+              <th scope="col">Tag</th>
+              <th scope="col">Ultima analisi</th>
+              <th scope="col">Compliance Piano Qualità</th>
+              <th scope="col">Azioni</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (p of projects(); track p.id) {
+              <tr class="project-row" [class.selected]="expandedId() === p.id" tabindex="0"  
+                [attr.aria-expanded]="expandedId() === p.id" (click)="toggle(p)"
+                (keydown.enter)="toggle(p)" (keydown.space)="$event.preventDefault(); toggle(p)">
+                
+                <td class="project-name"> {{ p.projectName }} </td>
+                <td>{{ p.releaseNumber ?? '-' }}</td>
+                <td>{{ p.sprintNumber ?? '-' }}</td>
+                <td class="tag-cell">{{ p.tag }}</td>
+                <td>{{ p.dataUltimaAnalisi ? (p.dataUltimaAnalisi | date:'dd/MM/yyyy HH:mm') : '-' }} </td>
+
+                <td class="compliance-cell">
+                  @if (p.compliance != null) {
+                    <div class="compliance" [title]="'Compliance piano qualità: ' + percentuale(p.compliance) + '%'">
+                      <div class="compliance-barra">
+                        <div class="compliance-valore" [style.width.%]="percentuale(p.compliance)"></div>
+                      </div>
+                      <span class="compliance-testo">{{ percentuale(p.compliance) }}%</span>
+                    </div>
+                  } @else {
+                    -
+                  }
+                </td>
+
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-button analisi-ia" type="button" (click)="$event.stopPropagation()">
+                      Analisi IA
+                    </button>
+
+                    <button
+                      class="action-button analisi-vm" type="button" (click)="$event.stopPropagation()">
+                      Analisi VM
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+               @if (expandedId() === p.id) {
+                <tr class="expanded-row">
+                  <td colspan="7">
+                    <app-analisi-dettaglio [projectId]="p.id" />
+                  </td>
+                </tr>
+              }
+            } @empty {
+              <tr class="empty-state">
+                <td colspan="7">
+                  Caricamento o nessun progetto presente.
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+</main>

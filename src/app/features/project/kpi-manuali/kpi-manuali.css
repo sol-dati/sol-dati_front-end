@@ -1,0 +1,151 @@
+:host {
+  display: block;
+  margin-top: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.kpi-manuali {
+  padding: 22px 28px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(16, 24, 40, 0.05);
+}
+
+.kpi-titolo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e4e7ec;
+}
+
+.kpi-titolo h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
+  color: #1d2939;
+}
+
+.chiudi {
+  background: transparent;
+  border: none;
+  color: #667085;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.kpi-progetto {
+  padding: 14px 0;
+  border-bottom: 1px solid #e4e7ec;
+  color: #344054;
+}
+
+.kpi-progetto p {
+  margin: 4px 0;
+}
+
+.info {
+  color: #667085;
+}
+
+.errore {
+  margin: 14px 0;
+  padding: 10px 14px;
+  background: #fef3f2;
+  border: 1px solid #fecdca;
+  border-radius: 8px;
+  color: #b42318;
+}
+
+.kpi-riga {
+  display: grid;
+  grid-template-columns: minmax(200px, 3fr) minmax(140px, 2fr) minmax(200px, 5fr);
+  align-items: start;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid #eaecf0;
+}
+
+.kpi-nome {
+  font-weight: 700;
+  color: #1d2939;
+}
+
+.kpi-valore {
+  width: 100%;
+  max-width: 220px;
+  padding: 7px 9px;
+  border: 1px solid #98a2b3;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.kpi-valore:focus {
+  border-color: #6941c6;
+  outline: none;
+}
+
+.kpi-descrizione {
+  color: #344054;
+  font-size: 14px;
+}
+
+.azioni {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.nota {
+  color: #667085;
+  font-size: 12px;
+}
+
+.bottoni {
+  display: flex;
+  gap: 10px;
+}
+
+.annulla {
+  padding: 9px 22px;
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  color: #344054;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.annulla:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.salva {
+  padding: 9px 22px;
+  background: #6941c6;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.salva:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+@media (max-width: 720px) {
+  .kpi-riga {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}

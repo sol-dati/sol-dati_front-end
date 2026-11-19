@@ -1,0 +1,15 @@
+<div class="select-row">
+  <label for="progetto-select" class="select-label">
+    Selezionare un Progetto dalla lista per esaminarlo
+  </label>
+
+  <div class="campo">
+    <select id="progetto-select" class="project-select" [value]="selected()" (change)="onChange($event)">
+      <option value="" disabled>Seleziona un progetto</option>
+
+      @for (project of projects(); track project) {
+        <option [value]="project">{{ project }}</option>
+      }
+    </select>
+  </div>
+</div>

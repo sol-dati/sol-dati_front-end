@@ -1,0 +1,146 @@
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.details-table-wrapper {
+  width: 100%;
+  max-height: 370px;
+  overflow: auto;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(16, 24, 40, 0.05);
+}
+
+.details-table-wrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.details-table-wrapper::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+}
+
+.details-table {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.details-table th,
+.details-table td {
+  padding: 13px 18px;
+  border-bottom: 1px solid #eef2f6;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.details-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f8fafc;
+  color: #667085;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.details-table th:nth-child(1),
+.details-table td:nth-child(1),
+.details-table th:nth-child(2),
+.details-table td:nth-child(2) {
+  width: 18%;
+}
+
+.details-table th:nth-child(3),
+.details-table td:nth-child(3) {
+  width: 42%;
+}
+
+.details-table th:nth-child(4),
+.details-table td:nth-child(4) {
+  width: 22%;
+}
+
+.details-table td {
+  color: #344054;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.details-table td:nth-child(3) {
+  max-width: 420px;
+  overflow: hidden;
+  color: #53389e;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.details-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.project-row {
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.project-row:hover {
+  background: #faf9ff;
+}
+
+.project-row.selected {
+  background: #f2efff;
+}
+
+.project-row.selected td {
+  color: #53389e;
+  font-weight: 700;
+}
+
+.project-row.selected td:first-child::before {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 0;
+  width: 3px;
+  background: #6941c6;
+  border-radius: 0 4px 4px 0;
+  content: "";
+}
+
+@media (max-width: 900px) {
+  .details-table { min-width: 650px; }
+}
+
+@media (max-width: 600px) {
+  .details-table-wrapper {
+    max-height: 320px;
+    border-radius: 10px;
+  }
+
+  .details-table {
+    min-width: 600px;
+    font-size: 12px;
+  }
+
+  .details-table th,
+  .details-table td {
+    padding: 12px 14px;
+  }
+}

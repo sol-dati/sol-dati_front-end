@@ -1,0 +1,109 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 24px;
+  background: #f5f7fb;
+  color: #1f2937;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.project-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.btn-sync {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 9px 16px;
+  border: 1px solid #6941c6;
+  border-radius: 8px;
+  background: #6941c6;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-sync:hover:not(:disabled) {
+  background: #53389e;
+  border-color: #53389e;
+}
+
+.btn-sync:focus-visible {
+  outline: 3px solid #d6bbfb;
+  outline-offset: 2px;
+}
+
+.btn-sync:disabled {
+  cursor: not-allowed;
+}
+
+.btn-sync.in-corso::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: btn-sync-giro 0.8s linear infinite;
+}
+
+.analisi-in-corso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+  padding: 10px 14px;
+  border: 1px solid #d6bbfb;
+  border-radius: 8px;
+  background: #f9f5ff;
+  color: #53389e;
+  font-size: 14px;
+}
+
+.analisi-in-corso::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #d6bbfb;
+  border-top-color: #6941c6;
+  border-radius: 50%;
+  animation: analisi-giro 0.8s linear infinite;
+}
+
+@keyframes analisi-giro {
+  to { transform: rotate(360deg); }
+}
+
+.dashboard-button {
+  background: #1d2939;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 9px 16px;
+  border: 1px solid #1d2939;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.dashboard-button:hover {
+  background: #344054;
+  color: #ffffff;
+  border-color: #344054;
+}

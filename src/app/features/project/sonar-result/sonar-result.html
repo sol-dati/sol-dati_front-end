@@ -1,0 +1,29 @@
+<div class="sonar-results">
+
+  <h3>Risultati SonarQube</h3>
+
+  <div class="sonar-metrics-list">
+    @for (metrica of metriche(); track metrica.key) {
+      <details class="sonar-metric">
+        <summary [title]="metrica.key">
+          <span class="sonar-metric-name">{{ formatMetricName(metrica.key) }}</span>
+          <span class="sonar-metric-value">{{ metrica.value }}</span>
+        </summary>
+
+        <div class="sonar-metric-content">
+          <div class="sonar-metric-detail">
+            <span>Chiave SonarQube</span>
+            <strong>{{ metrica.key }}</strong>
+          </div>
+
+          <div class="sonar-metric-detail">
+            <span>Valore rilevato</span>
+            <strong>{{ metrica.value }}</strong>
+          </div>
+
+          <p>Metrica restituita dall'analisi SonarQube per il tag selezionato.</p>
+        </div>
+      </details>
+    }
+  </div>
+</div>

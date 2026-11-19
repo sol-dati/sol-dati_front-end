@@ -1,0 +1,25 @@
+<div class="details-table-wrapper">
+  <table class="details-table">
+
+    <thead>
+      <tr>
+        <th>Release</th>
+        <th>Sprint</th>
+        <th>Tag</th>
+        <th>Stato</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (row of rows(); track row.tag) {
+        <tr class="project-row" [class.selected]="selectedTag() === row.tag" (click)="tagSelect.emit(row.tag)">
+          <td>{{ row.release ?? '-' }}</td>
+          <td>{{ row.sprint ?? '-' }}</td>
+          <td>{{ row.tag }}</td>
+          <td>{{ row.descrizione }}</td>
+        </tr>
+      }
+    </tbody>
+    
+  </table>
+</div>

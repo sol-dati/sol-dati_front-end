@@ -1,0 +1,225 @@
+<div class="dettaglio">
+
+  <div class="schede" role="tablist" aria-label="Sezioni dell'analisi">
+    <button type="button" role="tab" class="scheda" [class.attiva]="sezione() === 'SINTESI'"
+            [attr.aria-selected]="sezione() === 'SINTESI'" (click)="apri('SINTESI')">
+      Sintesi
+    </button>
+    @for (s of sintesi(); track s.codice) {
+      <button type="button" role="tab" class="scheda" [class.attiva]="sezione() === s.codice"
+              [attr.aria-selected]="sezione() === s.codice" (click)="apri(s.codice)">
+        {{ s.descrizione }}
+      </button>
+    }
+    <button type="button" role="tab" class="scheda" [class.attiva]="sezione() === 'ISSUE'"
+            [attr.aria-selected]="sezione() === 'ISSUE'" (click)="apri('ISSUE')">
+      Issue
+    </button>
+  </div>
+
+  @if (errore()) {
+    <p class="errore" role="alert">{{ errore() }}</p>
+  }
+
+  @if (caricamento()) {
+    <p class="info" role="status">Caricamento...</p>
+  } @else if (sezione() === 'SINTESI') {
+
+    <h3>Compliance ISO 25010 per categoria</h3>
+    <table class="tabella">
+      <thead>
+        <tr>
+          <th scope="col">Categoria</th>
+          <th scope="col" class="col-barra">Sintesi</th>
+          <th scope="col">Entro soglia</th>
+          <th scope="col">Fuori soglia</th>
+          <th scope="col">NP</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (s of sintesi(); track s.codice) {
+          <tr class="cliccabile" (click)="apri(s.codice)" [title]="'Apri ' + s.descrizione">
+            <td class="nome">{{ s.descrizione }}</td>
+            <td>
+              <div class="barra-impilata">
+                <div class="parte ok" [style.width.%]="s.entro * 100"></div>
+                <div class="parte ko" [style.width.%]="s.fuori * 100"></div>
+                <div class="parte nd" [style.width.%]="s.np * 100"></div>
+              </div>
+            </td>
+            <td class="num ok-testo">{{ percentuale(s.entro) }}%</td>
+            <td class="num ko-testo">{{ percentuale(s.fuori) }}%</td>
+            <td class="num">{{ percentuale(s.np) }}%</td>
+          </tr>
+        } @empty {
+          <tr><td colspan="5" class="info">Nessuna categoria ISO nel catalogo.</td></tr>
+        }
+      </tbody>
+    </table>
+
+    @if (issue(); as sezioni) {
+      <div class="issue-sintesi">
+        <span class="issue-titolo">Issue</span>
+        @for (s of sezioni; track s.severita) {
+          <button type="button" [class]="'issue-conteggio ' + s.severita.toLowerCase()" (click)="apri('ISSUE')"
+                  [title]="s.totaleViolati + ' KPI ' + (s.severita | titlecase) + ' violati · apri la scheda Issue'">
+            <span class="issue-numero">{{ s.totaleViolati }}</span>
+            <span class="issue-etichetta">{{ s.severita | titlecase }}</span>
+          </button>
+        }
+      </div>
+    }
+
+    <p class="legenda">
+      <span class="pallino ok"></span> entro soglia
+      <span class="pallino ko"></span> fuori soglia
+      <span class="pallino nd"></span> non presente
+    </p>
+
+  } @else if (sezione() === 'ISSUE') {
+
+    @if (issue() === null) {
+      <p class="info" role="status">Caricamento...</p>
+    }
+
+    <div class="issue-griglia">
+      @for (s of issue() ?? []; track s.severita) {
+        <section [class]="'issue-blocco ' + s.severita.toLowerCase()">
+
+          <h3>{{ s.severita | titlecase }}: {{ s.totaleViolati }} KPI violati</h3>
+
+          @if (s.violatiPerIso.length) {
+            <div class="grafico">
+              @for (i of s.violatiPerIso; track i.codice) {
+                <div class="grafico-riga" [title]="i.descrizione + ': ' + i.violati + ' (' + percentuale(i.quota) + '%)'">
+                  <span class="grafico-nome">{{ i.descrizione }}</span>
+                  <div class="grafico-barra">
+                    <div class="grafico-valore" [style.width.%]="i.quota * 100"></div>
+                  </div>
+                  <span class="grafico-numero">{{ i.violati }}</span>
+                </div>
+              }
+            </div>
+          } @else {
+            <p class="info">Nessun KPI {{ s.severita | titlecase }} violato.</p>
+          }
+
+          <table class="tabella">
+            <thead>
+              <tr>
+                <th scope="col">ISO</th>
+                <th scope="col">KPI</th>
+                <th scope="col">Valore</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (k of s.kpi; track k.chiave) {
+                <tr>
+                  <td>{{ k.isoDescrizione }}</td>
+                  <td class="nome" [title]="k.chiave">
+                    {{ k.nome }}
+                    @if (!k.calcCompliance) {
+                      <span class="non-concorre">(non concorre)</span>
+                    }
+                  </td>
+                  <td class="num">
+                    <span [class]="'badge ' + classeEsito(k.esito)" [title]="descrizioneEsito(k.esito)">
+                      {{ valoreFormattato(k) }}
+                    </span>
+                  </td>
+                </tr>
+              } @empty {
+                <tr><td colspan="3" class="info">Nessun KPI con severità {{ s.severita | titlecase }}.</td></tr>
+              }
+            </tbody>
+          </table>
+        </section>
+      }
+    </div>
+
+  } @else {
+
+    <h3>{{ descrizioneSezione() }}: KPI</h3>
+
+    @if (sezione() === codiceManutenibilita) {
+      @if (dimensione(); as d) {
+        <section class="dimensione" aria-label="Dimensione del codice">
+          <div class="riquadri">
+            <div class="riquadro">
+              <span class="riquadro-valore">{{ numero(d.numeroFile) }}</span>
+              <span class="riquadro-etichetta">File</span>
+            </div>
+            <div class="riquadro">
+              <span class="riquadro-valore">{{ numero(d.righeCodice) }}</span>
+              <span class="riquadro-etichetta">Righe di codice</span>
+            </div>
+            <div class="riquadro">
+              <span class="riquadro-valore">{{ d.linguaggi.length }}</span>
+              <span class="riquadro-etichetta">Linguaggi</span>
+            </div>
+          </div>
+
+          @if (d.linguaggi.length) {
+            <h4>Righe di codice per linguaggio</h4>
+            <div class="grafico">
+              @for (l of d.linguaggi; track l.linguaggio) {
+                <div class="grafico-riga" [title]="l.linguaggio + ': ' + numero(l.righe) + ' righe (' + percentuale(l.quota) + '%)'">
+                  <span class="grafico-nome">{{ l.linguaggio }}</span>
+                  <div class="grafico-barra">
+                    <div class="grafico-valore" [style.width.%]="l.quota * 100"></div>
+                  </div>
+                  <span class="grafico-numero">{{ numero(l.righe) }}</span>
+                </div>
+              }
+            </div>
+          }
+        </section>
+      }
+    }
+
+    <div class="colonne" [class.due]="colonneSezione().length > 1">
+      @for (c of colonneSezione(); track $index) {
+        <div class="colonna">
+          @if (c.titolo) {
+            <h4>{{ c.titolo }}</h4>
+          }
+          <table class="tabella">
+            <thead>
+              <tr>
+                <th scope="col">KPI</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Valore</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (k of c.righe; track k.chiave) {
+                <tr>
+                  <td class="nome" [title]="k.descrizione ? k.descrizione + ' · ' + k.chiave : k.chiave">
+                    {{ k.nome }}
+                    @if (!k.calcCompliance) {
+                      <span class="non-concorre">(non concorre)</span>
+                    }
+                  </td>
+                  <td>{{ k.tipoControllo ?? '-' }}</td>
+                  <td class="num">
+                    <span [class]="'badge ' + classeEsito(k.esito)" [title]="descrizioneEsito(k.esito)">
+                      {{ valoreFormattato(k) }}
+                    </span>
+                  </td>
+                </tr>
+              } @empty {
+                <tr><td colspan="3" class="info">Nessun KPI nel catalogo per questa categoria.</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+
+    <p class="legenda">
+      <span class="pallino ok"></span> entro soglia
+      <span class="pallino ko"></span> fuori soglia
+      <span class="pallino nd"></span> senza soglia o non misurato
+    </p>
+  }
+</div>
