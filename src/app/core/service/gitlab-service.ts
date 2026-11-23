@@ -9,7 +9,7 @@ import { API_URL } from '../config/api-url';
 })
 export class GitLabService {
 
-  private url = inject(API_URL) + '/rest/gitlab/';
+  private url = inject(API_URL) + '/gitlab/';
 
   private _projects = signal<string[]>([]);
   private _tags = signal<string[]>([]);

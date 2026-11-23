@@ -13,14 +13,14 @@
 
 .app-footer a {
   position: relative;
-  color: #6941c6;
+  color: #0069b4;
   font-weight: 600;
   text-decoration: none;
   transition: color 0.15s ease;
 }
 
 .app-footer a:hover {
-  color: #53389e;
+  color: #005b9c;
 }
 
 .app-footer a::after {
@@ -30,7 +30,7 @@
   right: 100%;
   bottom: -2px;
   height: 1px;
-  background: #6941c6;
+  background: #0069b4;
   transition: right 0.2s ease;
 }
 

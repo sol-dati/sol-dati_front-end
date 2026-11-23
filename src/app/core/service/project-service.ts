@@ -10,7 +10,7 @@ import { API_URL } from '../config/api-url';
 })
 export class ProjectService {
 
-  private url = inject(API_URL) + '/rest/project/';
+  private url = inject(API_URL) + '/project/';
   private _project = signal<ProjectInterface[]>([]);
 
   constructor(private http: HttpClient) { }

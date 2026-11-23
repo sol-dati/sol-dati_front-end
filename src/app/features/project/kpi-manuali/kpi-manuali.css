@@ -85,7 +85,7 @@
 }
 
 .kpi-valore:focus {
-  border-color: #6941c6;
+  border-color: #0069b4;
   outline: none;
 }
 
@@ -130,7 +130,7 @@
 
 .salva {
   padding: 9px 22px;
-  background: #6941c6;
+  background: #0069b4;
   border: none;
   border-radius: 8px;
   color: #ffffff;

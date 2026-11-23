@@ -15,7 +15,7 @@ export class SonarService {
 
   private http = inject(HttpClient);
 
-  private url = inject(API_URL) + '/rest/sonar';
+  private url = inject(API_URL) + '/sonar';
 
   loading = signal(false);
   errorMessage = signal<string | null>(null);

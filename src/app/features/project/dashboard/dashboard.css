@@ -21,7 +21,7 @@
   min-height: 58px;
   padding: 14px 22px;
   overflow: hidden;
-  background: linear-gradient(135deg, #422a82, #6941c6);
+  background: linear-gradient(135deg, #005da0, #0069b4);
   color: #ffffff;
   font-family: "Courier New", monospace;
   font-size: 16px;
@@ -171,7 +171,7 @@
 .actions > strong::before {
   width: 7px;
   height: 7px;
-  background: #6941c6;
+  background: #0069b4;
   border-radius: 50%;
   content: "";
 }
@@ -205,7 +205,7 @@
 
 .action-buttons button:hover:not(:disabled) {
   background: #f8f7ff;
-  color: #53389e;
+  color: #005896;
   border-color: #b8a9ea;
   transform: translateY(-1px);
 }
@@ -215,15 +215,15 @@
 }
 
 .action-buttons .avvia {
-  background: #6941c6;
+  background: #0069b4;
   color: #ffffff;
-  border-color: #6941c6;
+  border-color: #0069b4;
 }
 
 .action-buttons .avvia:hover:not(:disabled) {
-  background: #53389e;
+  background: #005896;
   color: #ffffff;
-  border-color: #53389e;
+  border-color: #005896;
 }
 
 .action-buttons .avvia:disabled {

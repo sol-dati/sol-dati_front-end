@@ -1,8 +1,8 @@
 :host {
-  --c-brand-900: #2f1d63;
-  --c-brand-800: #422a82;
-  --c-brand-600: #6941c6;
-  --c-brand-700: #53389e;
+  --c-brand-900: #004c82;
+  --c-brand-800: #00538e;
+  --c-brand-600: #0069b4;
+  --c-brand-700: #027fd9;
   --c-brand-100: #ebe5fb;
   --c-brand-50: #f7f4ff;
   --c-ink-900: #101828;
@@ -55,7 +55,7 @@
 }
 
 .filtro a {
-  color: #6941c6;
+  color: #0069b4;
   font-weight: 600;
 }
 

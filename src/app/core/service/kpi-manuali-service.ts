@@ -13,7 +13,7 @@ export class KpiManualiService {
 
   private http = inject(HttpClient);
 
-  private url = inject(API_URL) + '/rest/kpi-manuali';
+  private url = inject(API_URL) + '/kpi-manuali';
 
   // KPI manuali del catalogo con i valori già inseriti per il tag
   list(projectName: string, tag: string): Observable<KpiManuale[]> {

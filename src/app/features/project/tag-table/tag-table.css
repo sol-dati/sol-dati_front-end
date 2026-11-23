@@ -82,7 +82,7 @@
 .details-table td:nth-child(3) {
   max-width: 420px;
   overflow: hidden;
-  color: #53389e;
+  color: #005fa2;
   font-family: "Courier New", monospace;
   font-size: 12px;
   font-weight: 700;
@@ -109,7 +109,7 @@
 }
 
 .project-row.selected td {
-  color: #53389e;
+  color: #005fa2;
   font-weight: 700;
 }
 
@@ -119,7 +119,7 @@
   bottom: 6px;
   left: 0;
   width: 3px;
-  background: #6941c6;
+  background: #0069b4;
   border-radius: 0 4px 4px 0;
   content: "";
 }

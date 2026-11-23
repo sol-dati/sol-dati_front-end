@@ -16,7 +16,7 @@ export class DashboardService {
 
   private http = inject(HttpClient);
 
-  private url = inject(API_URL) + '/rest/dashboard';
+  private url = inject(API_URL) + '/dashboard';
 
   // compliance per categoria iso dell'ultima analisi del tag
   sintesi(projectId: number): Observable<IsoSintesi[]> {

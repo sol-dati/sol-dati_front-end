@@ -48,11 +48,11 @@
 }
 
 .sonar-metric:hover {
-  border-color: #c9bdf4;
+  border-color: #87cdff;
 }
 
 .sonar-metric[open] {
-  border-color: #b8a9ea;
+  border-color: #87cdff;
   box-shadow: 0 4px 12px rgba(80, 53, 160, 0.1);
 }
 
@@ -105,7 +105,7 @@
 .sonar-metric-value {
   max-width: 130px;
   overflow: hidden;
-  color: #53389e;
+  color: #005d9f;
   font-size: 16px;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
